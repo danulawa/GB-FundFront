@@ -1,7 +1,8 @@
 # GB-Version1
 # GadgetBadget Project
-# Group No 14
-# Data Science Batch G15
+
+Group No 14
+Data Science Batch G15
 
 Developers
 Danula Wanasinghe
