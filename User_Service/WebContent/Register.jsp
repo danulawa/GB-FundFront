@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.user.User" %>
+<%@ page import="model.User" %>
 
 	<%
 		//Insert item----------------------------------
@@ -50,12 +50,7 @@
 			 Password: <input name="password" type="text" class="form-control" placeholder="Please provide your password"><br>
 			 <input name="btnSubmit" type="submit" value="Save" class="btn btn-primary">
 		</form>
-		 <% out.print(session.getAttribute("statusMsg"));%> 
-		<br>
-		<%
-			User user = new User();
-		out.print(user.readItems());
-		%>
+		
 
 </body>
 </html>
