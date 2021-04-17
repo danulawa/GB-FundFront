@@ -190,9 +190,73 @@ public class User {
 		 }
 		catch (Exception e)
 		 {
-			 output = "Error while reading the items.";
+			 output = "Error while reading the user details.";
 			 System.err.println(e.getMessage());
 		 }
 		return output;
 	}
+   
+   
+   public String EditUserDetails(String userId,String userCode,String name,String NIC, String email, String phone,String userType, String username, String password)
+   {
+	   String output = "";
+	   try
+		   {
+		   Connection con = connect();
+		   if (con == null)
+		   {
+			   return "Error while connecting to the database for updating."; 
+		   }
+		   // create a prepared statement
+		   String query = "UPDATE users SET userCode=?,name=?,NIC=?,userEmail=?,userPhone=?,userType=?,username=?,password=?WHERE userId=?";
+		   PreparedStatement preparedStmt = con.prepareStatement(query);
+		   // binding values
+		   preparedStmt.setString(1, userCode);
+		   preparedStmt.setString(2, name);
+		   preparedStmt.setString(3, NIC);
+		   preparedStmt.setString(4, email);
+		   preparedStmt.setString(5, phone);
+		   preparedStmt.setString(6, userType);
+		   preparedStmt.setString(7, username);
+		   preparedStmt.setString(8, password);
+		   preparedStmt.setInt(9, Integer.parseInt(userId));
+		   // execute the statement
+		   preparedStmt.execute();
+		   con.close();
+		   output = "Updated successfully";
+		   }
+	    catch (Exception e)
+		{
+		   output = "Error while updating the user.";
+		   System.err.println(e.getMessage());
+		}
+	    return output;
+	    }
+	  
+   public String deleteUser(String userId)
+   {
+	   String output = "";
+	   try
+	   {
+	   Connection con = connect();
+	   if (con == null)
+	   {return "Error while connecting to the database for deleting."; }
+	   // create a prepared statement
+	   String query = "delete from users where userId=?";
+	   PreparedStatement preparedStmt = con.prepareStatement(query);
+	   // binding values
+	   preparedStmt.setInt(1, Integer.parseInt(userId));
+	   // execute the statement
+	   preparedStmt.execute();
+	   con.close();
+	   output = "Deleted successfully";
+	   }
+	   catch (Exception e)
+	   {
+	   output = "Error while deleting the item.";
+	   System.err.println(e.getMessage());
+	   }
+	   return output;
+	}
+
 }
