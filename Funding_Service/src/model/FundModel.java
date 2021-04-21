@@ -159,7 +159,7 @@ public class FundModel {
 			String query = "UPDATE fund SET amount=? WHERE fundID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
-			// binding values
+			//Binding Values
 			preparedStmt.setDouble(1, amount);
 			preparedStmt.setString(2, fundID);
 
