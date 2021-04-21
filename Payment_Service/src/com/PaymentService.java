@@ -35,7 +35,8 @@ public class PaymentService {
 			@FormParam("orderId") int orderId) {
 		return this.payment.addPayment(cardType, cardNumber, nameOnCard, cvc, expireDate, status, paymentDate, orderId);	
 	}
-	//viewservice
+	
+	//view service
 	
 	
 	@GET
