@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -64,5 +65,33 @@ public class Login {
 			return "incorrect Username or password";
 		}
 			
+	public String ForgotPassword(String userCode,String password) 
+	{
+		try
+		{
+			Connection con = connect();
+			if (con == null)
+			{
+				return "Error while connecting to the database for validation"; 
+			}
+						
+			String query = "UPDATE users SET password=? WHERE userCode=?";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
+			
+			// binding values
+			preparedStmt.setString(1,password);//newpassword to be set is passed
+			preparedStmt.setString(2,userCode);//usercode sent through email is passed
+	
+			preparedStmt.execute();
+			con.close();
+			return "Password reseted Successfully";
+			
+		}
+		catch (Exception e)
+		{
+			System.err.println(e.getMessage());
+		}
+	return "Error while Reseting the Password";
+	}			
 }

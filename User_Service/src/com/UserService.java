@@ -28,24 +28,14 @@ public class UserService
 		return adminobj.readUserDetails();
 	}
 		
-	@POST
-	@Path("/getUserbyID/userId")
+	@GET
+	@Path("/getUserbyID/{userId}")
 	@Produces(MediaType.TEXT_HTML)
-	public String UserProfileDetails(@FormParam("userId") String userId) {
+	public String UserProfileDetails(@PathParam("userId") String userId) {
 
 		return userObj.fetchUser(userId);
 	}
-	/*@GET
-	@Path("/{userId}")
-	@Produces(MediaType.TEXT_HTML)
-	public String UserProfileDetails(@PathParam("userId")String userID)
-	{
-		JsonObject userObject = new JsonParser().parse(userID).getAsJsonObject();
-		String userId = userObject.get("userId").getAsString();
-		return userObj.fetchUser(userId);
-	}*/
-	
-	
+
 	@PUT
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
