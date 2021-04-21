@@ -20,8 +20,7 @@ public class PaymentService {
 	Payment payment = new Payment();
 //add service
 	
-	
-	
+
 	@POST
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -36,7 +35,7 @@ public class PaymentService {
 			@FormParam("orderId") int orderId) {
 		return this.payment.addPayment(cardType, cardNumber, nameOnCard, cvc, expireDate, status, paymentDate, orderId);	
 	}
-	
+	//viewservice
 	@GET
     @Path("/get")
     @Produces(MediaType.TEXT_HTML)
