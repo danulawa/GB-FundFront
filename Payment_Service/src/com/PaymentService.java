@@ -18,7 +18,10 @@ import model.Payment;
 public class PaymentService {
 	
 	Payment payment = new Payment();
-
+//add service
+	
+	
+	
 	@POST
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
