@@ -19,13 +19,5 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class FundingService {
-	
-	@GET
-	@Path("/")
-	@Produces(MediaType.TEXT_PLAIN)
-	public String hello()
-	 {
-	 return "Hello world.";
-	 } 
 
 }
