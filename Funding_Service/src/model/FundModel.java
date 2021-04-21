@@ -163,7 +163,7 @@ public class FundModel {
 			preparedStmt.setDouble(1, amount);
 			preparedStmt.setString(2, fundID);
 
-			// execute the statement
+			//Statement Execution
 			preparedStmt.execute();
 			con.close();
 			output = "Updated successfully";
