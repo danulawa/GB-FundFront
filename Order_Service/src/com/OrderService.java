@@ -58,6 +58,7 @@ public class OrderService {
 		String output = Ord1.addOrder(cid,pid,day);
 		return output;
 	}
+	//update service
 	@PUT
 	@Path("/update/Ord1/{order_id}") 
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
