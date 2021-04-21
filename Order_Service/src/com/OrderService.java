@@ -73,7 +73,7 @@ public class OrderService {
          
 		return output;
 	}
-	
+	//delete service
 	@DELETE
 	@Path("/delete/Ord1/{order_id}")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
