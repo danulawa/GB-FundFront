@@ -13,8 +13,8 @@ public class FundModel {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
-			// Provide the correct details: DBServer/DBName, username, password
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/gadjetbadjet", "root", "kosalaMA19#");
+			//Database Details
+			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/gbdatabase", "root", "Dan@617");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,9 +40,9 @@ public class FundModel {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Inserted successfully";
+			output = "Inserted Successfully!!";
 		} catch (Exception e) {
-			output = "Error while inserting the fund.";
+			output = "Error while inserting the fund!!";
 			System.err.println(e.getMessage());
 		}
 		return output;
@@ -60,7 +60,7 @@ public class FundModel {
 			output = "<table border='1'><tr><th>Fund ID</th><th>Research ID</th>" + "<th>Description</th>"
 					+ "<th>Amount</th>" +"<th>Funder</th>" + "<th>Update</th><th>Remove</th></tr>";
 
-			String query = "select * from funds";
+			String query = "select * from fund";
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
@@ -110,7 +110,7 @@ public class FundModel {
 			output = "<table border='1'><tr><th>Fund ID</th><th>Research ID</th>" + "<th>Description</th>"
 					+ "<th>Amount</th>" +"<th>Funder</th>" + "<th>Update</th><th>Remove</th></tr>";
 			
-			String query = "select * from funds where funder =?";
+			String query = "select * from fund where funderName =?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			preparedStmt.setString(1, ID);
 			ResultSet rs = preparedStmt.executeQuery();
@@ -121,7 +121,7 @@ public class FundModel {
 				String researchID = rs.getString("researchID");
 				String description = rs.getString("description");
 				String amount = Double.toString(rs.getDouble("amount"));
-				String funder = rs.getString("funder");
+				String funder = rs.getString("funderName");
 				
 
 				// Add into the html table
@@ -156,8 +156,9 @@ public class FundModel {
 				return "Error while connecting to the database for updating.";
 			}
 			// create a prepared statement
-			String query = "UPDATE funds SET amount=? WHERE fundID=?";
+			String query = "UPDATE fund SET amount=? WHERE fundID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
+			
 			// binding values
 			preparedStmt.setDouble(1, amount);
 			preparedStmt.setString(2, fundID);
@@ -182,7 +183,7 @@ public class FundModel {
 				return "Error while connecting to the database for deleting.";
 			}
 			// create a prepared statement
-			String query = "delete from funds where fundID=?";
+			String query = "delete from fund where fundID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			// binding values
 			preparedStmt.setInt(1, Integer.parseInt(ID));
