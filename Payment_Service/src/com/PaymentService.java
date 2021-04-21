@@ -72,6 +72,7 @@ public class PaymentService {
 	
 	}
 	
+	//delete service
 	@DELETE
 	@Path("/delete/payment/{payment_id}")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
