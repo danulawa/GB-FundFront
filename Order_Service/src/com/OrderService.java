@@ -35,7 +35,7 @@ public class OrderService {
 	}
 	
 	
-	
+	//get order by ID service
 	@GET
 	@Path("/getOrderbyID/Ord1/{id}")
 	@Produces(MediaType.TEXT_HTML)
