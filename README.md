@@ -1,8 +1,8 @@
-## GB-Version1
-## GadgetBadget Project
+### GB-Version1
+### GadgetBadget Project
 
-## Group No 14
-## Data Science Batch G15
+### Group No 14
+### Data Science Batch G15
 
 #### Developers
  - Danula Wanasinghe
@@ -18,10 +18,10 @@
  - Nisaja    - Order Service
  - Hasini    - Product Service
 
-### Technology Stack Used
+#### Technology Stack Used
  - JAX-RS
  - MySQL
 
-### IDEs used
+#### IDEs used
  - Eclipse
  - MySQL Workbench / Xampp
