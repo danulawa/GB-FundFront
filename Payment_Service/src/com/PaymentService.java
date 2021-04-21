@@ -20,8 +20,7 @@ public class PaymentService {
 	Payment payment = new Payment();
 //add service
 	
-	
-	
+
 	@POST
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -37,6 +36,9 @@ public class PaymentService {
 		return this.payment.addPayment(cardType, cardNumber, nameOnCard, cvc, expireDate, status, paymentDate, orderId);	
 	}
 	
+	//view service
+	
+	
 	@GET
     @Path("/get")
     @Produces(MediaType.TEXT_HTML)
@@ -51,7 +53,7 @@ public class PaymentService {
 
 		return this.payment.getPaymentByCustomer(custId);
 	}
-	
+	//update service
 	@PUT
 	@Path("/update/payment/{payment_id}")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -70,6 +72,7 @@ public class PaymentService {
 	
 	}
 	
+	//delete service
 	@DELETE
 	@Path("/delete/payment/{payment_id}")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
