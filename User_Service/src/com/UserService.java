@@ -1,5 +1,4 @@
 package com;
-import model.Admin;
 import model.User;
 //For REST Service
 import javax.ws.rs.*;
@@ -16,20 +15,50 @@ import org.jsoup.nodes.Document;
 @Path("/Users")
 public class UserService
 {
-	User userObj = new User();//for all the one  user data
-	Admin adminobj = new Admin();//for all user data
-	
+	User userObj = new User();
+		
+	@POST
+	@Path("/")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.TEXT_PLAIN)
+	//register user
+	public String RegisterUser(@FormParam("userCode") String userCode,
+	 @FormParam("name") String name,
+	 @FormParam("NIC") String NIC,
+	 @FormParam("userEmail") String userEmail,
+	 @FormParam("userPhone") String userPhone,
+	 @FormParam("userType") String userType,
+	 @FormParam("username") String username,
+	 @FormParam("password") String password
+	 )
+	{
+	 if(userCode.isEmpty()||name.isEmpty()||userEmail.isEmpty()||userPhone.isEmpty()||userType.isEmpty()||username.isEmpty()||username.isEmpty()||password.isEmpty()) 
+	 {
+		 return "input fields cannot be empty";
+	 }
+	 else if(NIC.length()!=10) {
+		 return "NIC length must be 10 characters long";
+	 }
+	 else if(password.length()<5||password.length()>20) {
+		 return "password should be less than 20 and more than 5 in length";
+	 }
+     else if(!password.matches("(.*[@,#,$,%].*$)")) {
+    	 return "password must contain at least one special character";
+     }
+	 String output = userObj.RegisterUser(userCode, name, NIC, userEmail,userPhone,userType,username,password);
+	 return output;
+    }
 
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
-	public String readUserDetails()
+	public String readUserDetails()//view all users
 	{
-		return adminobj.readUserDetails();
+		return userObj.readUserDetails();
 	}
 		
 	@GET
-	@Path("/getUserbyID/{userId}")
+	@Path("/getUserbyID/{userId}")//view a specific user
 	@Produces(MediaType.TEXT_HTML)
 	public String UserProfileDetails(@PathParam("userId") String userId) {
 
@@ -40,7 +69,7 @@ public class UserService
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String updateUser(String userData)
+	public String updateUser(String userData)//update user
 	{
 		//Convert the input string to a JSON object
 		 JsonObject userObject = new JsonParser().parse(userData).getAsJsonObject();
@@ -62,7 +91,7 @@ public class UserService
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String deleteUser(String userData)
+	public String deleteUser(String userData)//delete users
 	{
 		//Convert the input string to an XML document
 		 Document doc = Jsoup.parse(userData, "", Parser.xmlParser());
