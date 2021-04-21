@@ -4,14 +4,14 @@
 ## Group No 14
 ## Data Science Batch G15
 
-### Developers
+#### Developers
  - Danula Wanasinghe
  - Chamathka Maddugoda
  - Abhimani Kumarage
  - Hasini Ramawickrama
  - Nisaja Fernando
 
-### Micro Services Implemented
+#### Micro Services Implemented
  - Danula    - Funding Service
  - Abimani   - Payment Service
  - Chamathka - User Service
