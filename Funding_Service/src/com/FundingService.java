@@ -18,6 +18,7 @@ import org.jsoup.parser.Parser;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+@Path("/Funding")
 public class FundingService {
 
 }
