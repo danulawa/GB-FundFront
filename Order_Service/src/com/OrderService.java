@@ -25,7 +25,7 @@ public class OrderService {
 	
 	Order Ord1 = new Order();
 	
-	
+	//read orders service
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
