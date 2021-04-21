@@ -12,11 +12,11 @@
  - Nisaja Fernando
 
 #### Micro Services Implemented
- - Danula - ***Funding Service**
- - Abimani - ***Payment Service**
- - Chamathka - ***User Service**
- - Nisaja - ***Order Service**
- - Hasini - ***Product Service**
+ - Danula - ***Funding Service***
+ - Abimani - ***Payment Service***
+ - Chamathka - ***User Service***
+ - Nisaja - ***Order Service***
+ - Hasini - ***Product Service***
 
 #### Technology Stack Used
  - JAX-RS
