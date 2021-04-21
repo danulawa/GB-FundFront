@@ -45,19 +45,14 @@ public class User {
 		 + "<th>Phone</th>"
 		 + "<th>Type</th>"
 		 + "<th>UserName</th>"
-		 + "<th>Password</th>"
-		 + "<th>Update</th><th>Remove</th></tr>";
-		 String query = "select * from users where userId=userID";
+		 + "<th>Password</th>";
+		 String query = "select * from users where userId='"+userID+"'";
 		 Statement stmt = con.createStatement();
 		 ResultSet rs = stmt.executeQuery(query);
 		 // iterate through the rows in the result set
 		 while (rs.next())
 		 { 
 			 String userId = Integer.toString(rs.getInt("userId"));
-			 if(userID.equals(userId))
-				{	
-			 
-			 
 			 String userCode = rs.getString("userCode");
 			 String name = rs.getString("name");
 			 String NIC = rs.getString("NIC");
@@ -76,23 +71,18 @@ public class User {
 			 output += "<td>" + username + "</td>";
 			 output += "<td>" + password + "</td>";
 			 // buttons
-			 output += "<td><input name='btnUpdate' "
-			 + " type='button' value='Update' class='btn btn-secondary'></td>"
-			 + "<td><form method='post' action='Register.jsp'>"
-			 + "<input name='btnRemove' "
-			 + " type='submit' value='Remove' class='btn btn-danger'>"
-			 + "<input name='itemID' type='hidden' "
+			 output += "<input name='itemID' type='hidden' "
 			 + " value='" + userID + "'>"
 			 + "</form></td></tr>";
 		 }
 		 con.close();
 		 // Complete the html table
 		 output += "</table>";
-		 }
+		 
 		 }
 		catch (Exception e)
 		 {
-			 output = "Error while reading the user details.";
+			 output = "Error while reading the user details";
 			 System.err.println(e.getMessage());
 		 }
 		return output;

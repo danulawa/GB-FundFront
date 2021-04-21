@@ -43,8 +43,7 @@ public class Admin {
 			 + "<th>Phone</th>"
 			 + "<th>Type</th>"
 			 + "<th>UserName</th>"
-			 + "<th>Password</th>"
-			 + "<th>Update</th><th>Remove</th></tr>";
+			 + "<th>Password</th>";
 			 String query = "select * from users";
 			 Statement stmt = con.createStatement();
 			 ResultSet rs = stmt.executeQuery(query);
@@ -70,12 +69,7 @@ public class Admin {
 				 output += "<td>" + username + "</td>";
 				 output += "<td>" + password + "</td>";
 				 // buttons
-				 output += "<td><input name='btnUpdate' "
-				 + " type='button' value='Update' class='btn btn-secondary'></td>"
-				 + "<td><form method='post' action='Register.jsp'>"
-				 + "<input name='btnRemove' "
-				 + " type='submit' value='Remove' class='btn btn-danger'>"
-				 + "<input name='itemID' type='hidden' "
+				 output += "<input name='itemID' type='hidden' "
 				 + " value='" + userID + "'>"
 				 + "</form></td></tr>";
 			 }
