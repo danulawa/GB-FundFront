@@ -20,39 +20,44 @@ import com.google.gson.JsonParser;
 
 import model.FundModel;
 
-@Path("/Funding")
+@Path("/Fund")
 public class FundingService {
 	
-	FundModel Fund = new FundModel();
 
+	FundModel FundObject = new FundModel();
+	
 	@GET
 	@Path("/")
 	@Produces(MediaType.TEXT_HTML)
 	public String readFunds()
 	 {
-		return Fund.readFunds(); 
+		return FundObject.readFunds(); 
 	 } 
-	
 	
 	@GET
 	@Path("/{funder}")
 	@Produces(MediaType.TEXT_PLAIN)
-	public String readFundsFunder(@PathParam("funder") String funder)
+	public String readFundsFunder(@PathParam("funderName") String funder)
 	 {
-		return Fund.readFundsFunder(funder); 
+		return FundObject.readFundsFunder(funder); 
 	 }
-	
 	
 	@POST
 	@Path("/")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String insertFunds(@FormParam("researchID") String researchID,
+	public String insertFunds(@FormParam("researcherID") String researchID,
 	 @FormParam("description") String description,
-	 @FormParam("amount") double amount,@FormParam("funder") String funder)
+	 @FormParam("fundingAmount") String amount,@FormParam("funderName") String funder)
 	{
-	 String output = Fund.insertFunds(researchID, description, amount,funder);
-	return output;
+	try {
+		
+		String output = FundObject.insertFunds(researchID, description,Double.parseDouble(amount),funder);
+		return output;
+	}catch(NumberFormatException e){
+		return "Enter Valid amount";
+	}
+	
 	}
 	
 	@PUT
@@ -65,11 +70,12 @@ public class FundingService {
 	 JsonObject itemObject = new JsonParser().parse(itemData).getAsJsonObject();
 	//Read the values from the JSON object
 	 String fundID = itemObject.get("fundID").getAsString();
-	 double amount = Double.parseDouble(itemObject.get("amount").getAsString());
+	 double amount = Double.parseDouble(itemObject.get("fundingAmount").getAsString());
 
-	 String output = Fund.updateFundAmount(fundID, amount);
+	 String output = FundObject.updateFundAmount(fundID, amount);
 	return output;
 	}
+	
 	
 	@DELETE
 	@Path("/")
@@ -82,7 +88,7 @@ public class FundingService {
 
 	//Read the value from the element <itemID>
 	 String fundID = doc.select("fundID").text();
-	 String output = Fund.deleteFund(fundID);
+	 String output = FundObject.deleteFund(fundID);
 	return output;
 	
 	

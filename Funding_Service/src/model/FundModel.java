@@ -8,19 +8,20 @@ import java.sql.Statement;
 
 public class FundModel {
 	
+	
 	private Connection connect() {
 		Connection con = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
-			//Database Details
-			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/gbdatabase", "root", "Dan@617");
+			// Provide the correct details: DBServer/DBName, username, password
+			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/gbdatabase", "root", "dan@617");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return con;
 	}
-	
+
 	public String insertFunds(String researchID, String description, double amount, String funder) {
 		String output = "";
 		try {
@@ -29,10 +30,10 @@ public class FundModel {
 				return "Error while connecting to the database for inserting.";
 			}
 			// create a prepared statement
-			String query = " insert into funds(`researchID`,`description`,`amount`,`funder`)"+ "values (?, ?, ?, ?)";
+			String query = " insert into fund(`researcherID`,`description`,`fundingAmount`,`funderName`)"+ "values (?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
-			// binding values
 			
+			// binding values to PreparedStatement (dynamic binding)
 			preparedStmt.setString(1, researchID);
 			preparedStmt.setString(2, description);
 			preparedStmt.setDouble(3, amount);
@@ -40,14 +41,13 @@ public class FundModel {
 			// execute the statement
 			preparedStmt.execute();
 			con.close();
-			output = "Inserted Successfully!!";
+			output = "Inserted successfully";
 		} catch (Exception e) {
-			output = "Error while inserting the fund!!";
+			output = "Error while inserting the fund.";
 			System.err.println(e.getMessage());
 		}
 		return output;
 	}
-	
 	
 	public String readFunds() {
 		String output = "";
@@ -56,7 +56,7 @@ public class FundModel {
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
 			}
-			// Prepare the html table to be displayed
+			// Prepare the html table to display all the funds
 			output = "<table border='1'><tr><th>Fund ID</th><th>Research ID</th>" + "<th>Description</th>"
 					+ "<th>Amount</th>" +"<th>Funder</th>" + "<th>Update</th><th>Remove</th></tr>";
 
@@ -64,16 +64,14 @@ public class FundModel {
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			// iterate through the rows in the result set
+			// iterate through the rows in the result set(iterator)
 			while (rs.next()) {
 				String fundID = Integer.toString(rs.getInt("fundID"));
-				String researchID = rs.getString("researchID");
+				String researchID = rs.getString("researcherID");
 				String description = rs.getString("description");
-				String amount = Double.toString(rs.getDouble("amount"));
-				String funder = rs.getString("funder");
+				String amount = Double.toString(rs.getDouble("fundingAmount"));
+				String funder = rs.getString("funderName");
 				
-				
-
 				// Add into the html table
 				output += "<tr><td>" + fundID + "</td>";
 				output += "<td>" + researchID + "</td>";
@@ -81,8 +79,6 @@ public class FundModel {
 				output += "<td>" + amount + "</td>";
 				output += "<td>" + funder + "</td>";
 
-
-				// buttons
 				output += "<td><input name='btnUpdate' type='button' value='Update'class='btn btn-secondary'></td>"
 						+ "<td><form method='post' action='items.jsp'>"
 						+ "<input name='btnRemove' type='submit' value='Remove'class='btn btn-danger'>"
@@ -90,7 +86,7 @@ public class FundModel {
 			}
 			con.close();
 
-			// Complete the html table
+			
 			output += "</table>";
 		} catch (Exception e) {
 			output = "Error while reading the funds.";
@@ -106,7 +102,7 @@ public class FundModel {
 			if (con == null) {
 				return "Error while connecting to the database for reading.";
 			}
-			// Prepare the html table to be displayed
+			
 			output = "<table border='1'><tr><th>Fund ID</th><th>Research ID</th>" + "<th>Description</th>"
 					+ "<th>Amount</th>" +"<th>Funder</th>" + "<th>Update</th><th>Remove</th></tr>";
 			
@@ -118,9 +114,9 @@ public class FundModel {
 			// iterate through the rows in the result set
 			while (rs.next()) {
 				String fundID = Integer.toString(rs.getInt("fundID"));
-				String researchID = rs.getString("researchID");
+				String researchID = rs.getString("researcherID");
 				String description = rs.getString("description");
-				String amount = Double.toString(rs.getDouble("amount"));
+				String amount = Double.toString(rs.getDouble("fundingAmount"));
 				String funder = rs.getString("funderName");
 				
 
@@ -156,14 +152,13 @@ public class FundModel {
 				return "Error while connecting to the database for updating.";
 			}
 			// create a prepared statement
-			String query = "UPDATE fund SET amount=? WHERE fundID=?";
+			String query = "UPDATE fund SET fundingAmount=? WHERE fundID=?";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
-			
-			//Binding Values
+			// binding values
 			preparedStmt.setDouble(1, amount);
 			preparedStmt.setString(2, fundID);
 
-			//Statement Execution
+			// execute the statement
 			preparedStmt.execute();
 			con.close();
 			output = "Updated successfully";
@@ -173,7 +168,6 @@ public class FundModel {
 		}
 		return output;
 	}
-	
 	
 	public String deleteFund(String ID) {
 		String output = "";
@@ -199,3 +193,4 @@ public class FundModel {
 	}
 
 }
+
